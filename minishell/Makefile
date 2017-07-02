@@ -6,7 +6,7 @@
 #    By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/29 17:21:19 by tgrange           #+#    #+#              #
-#    Updated: 2017/07/02 16:34:59 by tgrange          ###   ########.fr        #
+#    Updated: 2017/07/03 00:41:53 by tgrange          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS =		minishell.c \
 			mini_core.c \
 			env.c \
 			env_list.c \
+			env_list2.c \
 			tools.c \
 			env_functions.c \
 			echo.c \
@@ -32,10 +33,12 @@ OBJS =		$(addprefix objs/, $(notdir $(SRCSD:.c=.o)))
 
 all:		$(NAME)
 
-$(NAME):	objs $(OBJS)
-			@make -C Libft
+$(NAME):	objs $(OBJS) get_libft
 			@gcc $(CFLAGS) -o $(NAME) $(OBJS) -L Libft -lft
 			@echo $(NAME) done !
+
+get_libft:
+			@make -C Libft
 
 objs/%.o:	srcs/%.c
 			@gcc -o $@ -c $< $(CFLAGS)

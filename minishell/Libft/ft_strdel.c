@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgrange <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 15:03:08 by tgrange           #+#    #+#             */
-/*   Updated: 2016/11/16 18:42:22 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/02 23:33:07 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,5 @@
 
 void	ft_strdel(char **as)
 {
-	if (!as)
-	{
-		free(as);
-		return ;
-	}
 	ft_memdel((void **)as);
 }

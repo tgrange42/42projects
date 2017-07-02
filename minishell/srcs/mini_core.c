@@ -6,16 +6,18 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:21:18 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/01 00:32:18 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 00:41:45 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	goto_func(char **args, t_env *env)
+void	goto_func(char **args, t_env *env, char **environ)
 {
+	char	**env_char;
+
 	if (ft_strequ("env", args[0]))
-		display_env(&env);
+		ft_env(&env, args, environ);
 	else if (ft_strequ("echo", args[0]))
 		echo(&args[1], env);
 	else if (ft_strequ("exit", args[0]))
@@ -29,22 +31,37 @@ void	goto_func(char **args, t_env *env)
 	else if (ft_strequ("unsetenv", args[0]))
 		ft_unsetenv(&env, &args[1]);
 	else
-		search_for_bin(&env, args[0], args);
+	{
+		env_char = t_env_to_tab(&env);
+		search_for_bin(&env, args[0], args, env_char);
+		del_tabstr(&env_char);
+	}
 }
 
-void	mini_core(t_env *env)
+void	mini_core(t_env *env, char **environ)
 {
 	char	*buf;
 	char	**args;
+	char	**lines;
+	int		i;
 
 	buf = NULL;
 	while (1)
 	{
 		display_prompt();
 		get_next_line(0, &buf);
-		args = ft_strsplit(buf, ' ');
-		goto_func(args, env);
-		del_tabstr(&args);
+		if (buf[0])
+		{
+			i = 0;
+			lines = ft_strsplit(buf, ';');
+			while (lines[i])
+			{
+				args = ft_strsplit(lines[i++], ' ');
+				goto_func(args, env, environ);
+				del_tabstr(&args);
+			}
+			del_tabstr(&lines);
+		}
 		ft_strdel(&buf);
 	}
 }

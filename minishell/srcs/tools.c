@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:17:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/02 20:08:11 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 01:05:36 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		display_prompt(void)
 	ft_putstr("> ");
 }
 
-char		*get_path(char *path, char *name)
+char		*get_path(char *path, char *name, char sep)
 {
 	int		l;
 	char	*ret;
@@ -48,9 +48,15 @@ char		*get_path(char *path, char *name)
 	if (!(ret = (char *)ft_memalloc(sizeof(char) * l)))
 		return (NULL);
 	ret = ft_strcpy(ret, path);
-	ret[ft_strlen(path)] = '/';
+	ret[ft_strlen(path)] = sep;
 	ret = ft_strcat(ret, name);
 	return (ret);
+}
+
+void	equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2)
+{
+	*t1 = *t2;
+	*s1 = *s2;
 }
 
 void		del_tabstr(char ***str)
@@ -62,6 +68,25 @@ void		del_tabstr(char ***str)
 		return ;
 	while ((*str)[i])
 		ft_strdel(&((*str)[i++]));
-	free(*str);
-	*str = NULL;
+	ft_memdel((void **)*str);
+}
+
+char		**t_env_to_tab(t_env **begin)
+{
+	char	**ret;
+	int		i;
+	t_env	*tmp;
+
+	if (!begin || !*begin)
+		return (NULL);
+	tmp = *begin;
+	i = 0;
+	if (!(ret = (char **)ft_memalloc(sizeof(ret) * (t_env_len(begin) + 1))))
+		return (NULL);
+	while (tmp)
+	{
+		ret[i++] = get_path(tmp->name, tmp->content, '=');
+		tmp = tmp->next;
+	}
+	return (ret);
 }

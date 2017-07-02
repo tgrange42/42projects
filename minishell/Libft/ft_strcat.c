@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgrange <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:59:11 by tgrange           #+#    #+#             */
-/*   Updated: 2016/11/19 11:11:58 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 00:51:19 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strcat(char *s1, const char *s2)
 
 	i = 0;
 	j = 0;
+	if (!s2)
+		return (s1);
 	while (s1[i] != '\0')
 		i++;
 	while (s2[j] != '\0')

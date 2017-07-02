@@ -3,19 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:47:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/06/30 10:32:03 by anonymous        ###   ########.fr       */
+/*   Updated: 2017/07/03 01:05:36 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2)
+int		t_env_len(t_env **begin)
 {
-	*t1 = *t2;
-	*s1 = *s2;
+	int		i;
+	t_env	*tmp;
+
+	tmp = *begin;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }
 
 void	push_alpha(t_env **begin, t_env *new)

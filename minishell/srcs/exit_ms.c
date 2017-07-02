@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 16:07:59 by tgrange           #+#    #+#             */
-/*   Updated: 2017/06/27 17:54:37 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/02 23:26:58 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	delete_list(t_env **env)
 	t_env	*tmp;
 	t_env	*tmp2;
 
+	if (!env)
+		return ;
 	tmp = *env;
 	tmp2 = tmp;
 	while (tmp)
@@ -24,7 +26,7 @@ void	delete_list(t_env **env)
 		tmp2 = tmp->next;
 		ft_strdel(&tmp->name);
 		ft_strdel(&tmp->content);
-		free(tmp);
+		ft_memdel((void **)&tmp);
 		tmp = tmp2;
 	}
 }
