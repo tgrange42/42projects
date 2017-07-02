@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:17:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/01 00:37:43 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/02 20:08:11 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,23 @@ void		display_prompt(void)
 {
 	char	*tmp;
 	char	*tmp2;
+	int		i;
 
+	i = 0;
 	tmp2 = getcwd(NULL, PATH_MAX);
 	tmp = ft_strrchr(tmp2, '/');
-	ft_putstr(&tmp[1]);
+	ft_putstr("minishell@");
+	while (tmp2[i])
+	{
+		if (tmp2[i++] == '/')
+			ft_putchar('/');
+		if (tmp2[i])
+			ft_putchar(tmp2[i]);
+		while (tmp2[i] && tmp2[i] && tmp2[i] != '/')
+			i++;
+	}
+	if (tmp[1])
+		ft_putstr(&tmp[2]);
 	ft_strdel(&tmp2);
 	ft_putstr("> ");
 }

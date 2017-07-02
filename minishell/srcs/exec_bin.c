@@ -6,13 +6,13 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:52:01 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/01 00:43:20 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/02 19:09:04 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		execute(char *bin_path, char **args)
+void	execute(char *bin_path, char **args)
 {
 	pid_t	father;
 
@@ -22,11 +22,13 @@ int		execute(char *bin_path, char **args)
 	else if (!father)
 	{
 		if (execve(bin_path, args, NULL) == -1)
-			return (-1);
+		{
+			ft_putendl_fd("minishell: failed to find the binary", 2);
+			exit(1);
+		}
 	}
 	else
 		ft_putendl_fd("minishell: fork: failed to fork", 2);
-	return (0);
 }
 
 int		is_bin_indir(char *path, char *name)
@@ -63,8 +65,7 @@ int		search_for_bin(t_env **begin, char *bin_to_srch, char **args)
 	}
 	bin_path = get_path(paths[i], bin_to_srch);
 	del_tabstr(&paths);
-	if (execute(bin_path, args) == -1)
-		ft_putendl_fd("minishell: failed to find the binary", 2);
+	execute(bin_path, args);
 	ft_strdel(&bin_path);
 	return (1);
 }

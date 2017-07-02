@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:22:35 by tgrange           #+#    #+#             */
-/*   Updated: 2017/06/30 10:32:01 by anonymous        ###   ########.fr       */
+/*   Updated: 2017/07/02 19:25:36 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ void		force_pwd(t_env **begin)
 	ft_strdel(&buf);
 }
 
+void		increase_shlvl(t_env **begin)
+{
+	int		tmp;
+	char	*tmp2;
+
+	if (ft_strequ(get_content(begin, "SHELL"), "minishell"))
+	{
+		tmp = ft_atoi(get_content(begin, "SHLVL"));
+		tmp2 = ft_itoa(tmp + 1);
+		add_or_change(begin, "SHLVL", tmp2);
+		ft_strdel(&tmp2);
+	}
+	else
+		add_or_change(begin, "SHLVL", "1");
+}
+
 t_env		*get_env(char **environ)
 {
 	t_env	*ret;
@@ -51,6 +67,7 @@ t_env		*get_env(char **environ)
 		del_tabstr(&tmp);
 	}
 	force_pwd(&ret);
+	increase_shlvl(&ret);
 	add_or_change(&ret, "SHELL", "minishell");
 	delete_t_env(&ret, "ZSH");
 	delete_t_env(&ret, "OLDPWD");
