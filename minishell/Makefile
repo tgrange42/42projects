@@ -6,7 +6,7 @@
 #    By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/29 17:21:19 by tgrange           #+#    #+#              #
-#    Updated: 2017/06/30 17:00:07 by tgrange          ###   ########.fr        #
+#    Updated: 2017/07/02 16:29:43 by tgrange          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ objs/%.o:	srcs/%.c
 			@gcc -o $@ -c $< $(CFLAGS)
 			@echo $@ done !
 clean:
-			@rm -rf $(OBJS)
+			@rm -rf objs
 			@make clean -C Libft
 
 fclean:		clean
