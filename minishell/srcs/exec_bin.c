@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:52:01 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/02 22:00:11 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 15:33:43 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	execute(char *bin_path, char **args, char **environ)
 	{
 		if (execve(bin_path, args, environ) == -1)
 		{
-			ft_putendl_fd("minishell: failed to find the binary", 2);
+			ft_putstr_fd("minishell: command not found: ", 2);
+			ft_putendl_fd(bin_path, 2);
 			exit(1);
 		}
 	}
@@ -39,16 +40,19 @@ int		is_bin_indir(char *path, char *name)
 
 	t = 0;
 	stream = opendir(path);
-	while ((list = readdir(stream)) != NULL)
+	if (stream)
 	{
-		if (!ft_strequ(list->d_name, ".") && !ft_strequ(list->d_name, "..") &&
-			ft_strequ(list->d_name, name))
+		while ((list = readdir(stream)) != NULL)
 		{
-			t = 1;
-			break;
+			if (!ft_strequ(list->d_name, ".") && !ft_strequ(list->d_name, "..") &&
+				ft_strequ(list->d_name, name))
+			{
+				t = 1;
+				break;
+			}
 		}
+		closedir(stream);
 	}
-	closedir(stream);
 	return (t);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgrange <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:27:59 by tgrange           #+#    #+#             */
-/*   Updated: 2016/11/19 11:54:57 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 19:47:11 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strcpy(char *dst, const char *src)
 	int		i;
 
 	i = 0;
+	if (!src)
+		return (dst);
 	while (src[i] != '\0')
 	{
 		dst[i] = src[i];

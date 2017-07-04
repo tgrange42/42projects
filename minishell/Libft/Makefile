@@ -6,7 +6,7 @@
 #    By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:25:11 by tgrange           #+#    #+#              #
-#    Updated: 2017/06/27 16:29:58 by tgrange          ###   ########.fr        #
+#    Updated: 2017/07/03 14:43:14 by tgrange          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ src = ft_memset.c ft_bzero.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strstr.c ft_
 	   ft_strmap.c ft_strmapi.c ft_striter.c ft_striteri.c ft_memcmp.c ft_memchr.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_revstr.c ft_itoa_base.c ft_putnbr_base.c \
 	   ft_lstincre.c ft_sqrt.c ft_strlento.c ft_swap.c ft_swaplst.c ft_swapptr.c ft_print_char.c ft_putbegl.c ft_tablen.c \
-	   ft_putstr_space.c get_next_line.c ft_strlento2.c
+	   ft_putstr_space.c get_next_line.c ft_strlento2.c ft_tabsplit.c
 
 obj = $(src:.c=.o)
 

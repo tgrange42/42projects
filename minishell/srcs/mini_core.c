@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:21:18 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 00:41:45 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 20:08:06 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	goto_func(char **args, t_env *env, char **environ)
 {
 	char	**env_char;
 
+	if (!args)
+		return ;
 	if (ft_strequ("env", args[0]))
 		ft_env(&env, args, environ);
 	else if (ft_strequ("echo", args[0]))
@@ -38,7 +40,7 @@ void	goto_func(char **args, t_env *env, char **environ)
 	}
 }
 
-void	mini_core(t_env *env, char **environ)
+void	mini_core(t_env *env, char **environ, int n)
 {
 	char	*buf;
 	char	**args;
@@ -48,15 +50,16 @@ void	mini_core(t_env *env, char **environ)
 	buf = NULL;
 	while (1)
 	{
-		display_prompt();
+		display_prompt(&n);
 		get_next_line(0, &buf);
 		if (buf[0])
 		{
 			i = 0;
 			lines = ft_strsplit(buf, ';');
-			while (lines[i])
+			while (lines && lines[i])
 			{
-				args = ft_strsplit(lines[i++], ' ');
+				args = ft_tabsplit(lines[i++]);
+				get_tilde(args, &env);
 				goto_func(args, env, environ);
 				del_tabstr(&args);
 			}

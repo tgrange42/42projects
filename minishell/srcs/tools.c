@@ -6,19 +6,22 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:17:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 01:05:36 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 20:05:17 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		display_prompt(void)
+void		display_prompt(int *n)
 {
 	char	*tmp;
 	char	*tmp2;
 	int		i;
 
 	i = 0;
+	if (*n)
+		ft_putchar('\n');
+	*n = 0;
 	tmp2 = getcwd(NULL, PATH_MAX);
 	tmp = ft_strrchr(tmp2, '/');
 	ft_putstr("minishell@");

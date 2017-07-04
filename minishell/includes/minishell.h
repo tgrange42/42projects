@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:32:31 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/02 22:34:29 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/03 20:07:52 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void				exit_ms(t_env **env);
 */
 
 void				goto_func(char **args, t_env *env, char **environ);
-void				mini_core(t_env *begin, char **environ);
+void				mini_core(t_env *begin, char **environ, int n);
 
 /*
 **	pwd.c
@@ -110,11 +110,17 @@ void				mini_core(t_env *begin, char **environ);
 void				pwd(t_env *env);
 
 /*
+**	tilde.c
+*/
+
+void				get_tilde(char **args, t_env **begin);
+
+/*
 **	tools.c
 */
 
 char				*get_path(char *path, char *name, char sep);
-void				display_prompt();
+void				display_prompt(int *n);
 void				del_tabstr(char ***str);
 void				equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2);
 char				**t_env_to_tab(t_env **begin);
