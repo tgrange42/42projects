@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:47:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 01:05:36 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/05 22:13:56 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,66 @@ void	push_alpha(t_env **begin, t_env *new)
 	}
 }
 
-int		delete_t_env(t_env **begin, char *variable_to_delete)
+void	destroy_t_env(t_env *to_destroy)
 {
+	if (to_destroy)
+	{
+		ft_strdel(&to_destroy->name);
+		ft_strdel(&to_destroy->content);
+		to_destroy->name = NULL;
+		free(to_destroy);
+	}
+}
 
-	t_env	*env;
+void	delete_t_env(t_env **begin, char *variable_to_delete)
+{
+// 	t_env	*env;
+// 	t_env	*tmp;
+
+// 	env = *begin;
+// 	// while (env && !ft_strequ(variable_to_delete, env->name))
+// 	// 	env = env->next;
+// 	// destroy_t_env(env);
+// 	// if (env && ft_strequ(variable_to_delete, env->name))
+// 	// {
+// 	// 	begin = &env->next;
+// 	// 	ft_strdel(&env->name);
+// 	// 	ft_strdel(&env->content);
+// 	// 	free(env);
+// 	// 	return (0);
+// 	// }
+// 	while (env && !ft_strequ(variable_to_delete, env->name))
+// 		env = env->next;
+// 	tmp = env->next;
+// 	ft_strdel(&env->name);
+// 	ft_strdel(&env->content);
+// 	ft_memdel((void **)&env);
+// 	env = tmp;
 	t_env	*tmp;
+	t_env	*previous;
+	t_env	*current;
 
-	if (!get_content(begin, variable_to_delete))
-		return (-1);
-	env = *begin;
-	while (env && env->next && ft_strcmp(variable_to_delete, env->next->name))
-		env = env->next;
-	tmp = env->next->next;
-	ft_strdel(&env->next->name);
-	ft_strdel(&env->next->content);
-	free(env->next);
-	env->next = tmp;
-	return (0);
+	if (ft_strequ(variable_to_delete, (*begin)->name))
+	{
+		tmp = *begin;
+		*begin = (*begin)->next;
+		destroy_t_env	(tmp);
+		return ;
+	}
+	current = (*begin)->next;
+	previous = *begin;
+	while (current && previous)
+	{
+		if (ft_strequ(variable_to_delete, current->name))
+		{
+			tmp = current;
+			previous->next = current->next;
+			destroy_t_env(tmp);
+			return ;
+		}
+		previous = current;
+		current = current->next;
+	}
 }
 
 void	add_or_change(t_env **begin, char *name, char *content)
@@ -70,7 +113,7 @@ void	add_or_change(t_env **begin, char *name, char *content)
 	else
 	{
 		env = *begin;
-		while (ft_strcmp(name, env->name))
+		while (env && !ft_strequ(name, env->name))
 			env = env->next;
 		ft_strdel(&env->content);
 		env->content = ft_strdup(content);

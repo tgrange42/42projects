@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:17:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 20:05:17 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/07 18:45:31 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ char		**t_env_to_tab(t_env **begin)
 		return (NULL);
 	while (tmp)
 	{
-		ret[i++] = get_path(tmp->name, tmp->content, '=');
+		if (tmp->name)
+			ret[i++] = get_path(tmp->name, tmp->content, '=');
 		tmp = tmp->next;
 	}
 	return (ret);

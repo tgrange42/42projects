@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:19:25 by tgrange           #+#    #+#             */
-/*   Updated: 2017/06/30 10:32:02 by anonymous        ###   ########.fr       */
+/*   Updated: 2017/07/05 22:34:11 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void	pwd(t_env *env)
 	buf = getcwd(buf, PATH_MAX);
 	ft_putendl(buf);
 	ft_strdel(&buf);
-	force_pwd(&env);
+	force_pwd(env);
 }

@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:53:24 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 01:05:36 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/07 19:21:18 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void	display_env(t_env **begin)
 	env = *begin;
 	while (env)
 	{
-		ft_putstr(env->name);
-		ft_putchar('=');
-		ft_putendl(env->content);
+		if (env->name)
+		{
+			ft_putstr(env->name);
+			ft_putchar('=');
+			ft_putendl(env->content);
+		}
 		env = env->next;
 	}
 }
@@ -32,15 +35,7 @@ void	ft_unsetenv(t_env **begin, char **var_todel)
 
 	i = 0;
 	while (var_todel[i])
-	{
-		if (delete_t_env(begin, var_todel[i]) == -1)
-		{
-			ft_putstr_fd("minishell: unsetenv: ", 2);
-			ft_putstr_fd(var_todel[i], 2);
-			ft_putendl_fd(" not set", 2);
-		}
-		i++;
-	}
+		delete_t_env(begin, var_todel[i++]);
 }
 
 void	ft_env_equal(t_env **begin, char **args)
@@ -88,14 +83,12 @@ void	tmp_delete(t_env **begin, char **args)
 
 void	ft_env(t_env **begin, char **args, char **environ)
 {
-	if (!args[1])
-		display_env(begin);
+	if (!args[1] || ft_strchr(args[1], '='))
+		ft_env_equal(begin, &args[1]);
 	else if (args[1][0] != '-' && !ft_strchr(args[1], '='))
 		goto_func(&args[1], *begin, environ);
 	else if (ft_strequ("-i", args[1]))
 		ft_env_equal(NULL, &args[2]);
-	else if (ft_strchr(args[1], '='))
-		ft_env_equal(begin, &args[1]);
 	else if (ft_strequ("-u", args[1]))
 		tmp_delete(begin, &args[2]);
 }

@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/02 22:33:38 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 00:41:50 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/05 17:11:41 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_env	*copy_t_env(t_env **begin)
 	ret = NULL;
 	while (tmp)
 	{
-		create_t_env(&ret, tmp->name, tmp->content);
+		if (tmp->name)
+			create_t_env(&ret, tmp->name, tmp->content);
 		tmp = tmp->next;
 	}
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:21:18 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 20:08:06 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/05 22:34:31 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ void	goto_func(char **args, t_env *env, char **environ)
 		search_for_bin(&env, args[0], args, env_char);
 		del_tabstr(&env_char);
 	}
+
 }
 
-void	mini_core(t_env *env, char **environ, int n)
+void	mini_core(t_env **env, char **environ, int n)
 {
 	char	*buf;
 	char	**args;
@@ -59,8 +60,8 @@ void	mini_core(t_env *env, char **environ, int n)
 			while (lines && lines[i])
 			{
 				args = ft_tabsplit(lines[i++]);
-				get_tilde(args, &env);
-				goto_func(args, env, environ);
+				get_tilde(args, env);
+				goto_func(args, *env, environ);
 				del_tabstr(&args);
 			}
 			del_tabstr(&lines);

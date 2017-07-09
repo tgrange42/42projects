@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 14:41:04 by tgrange           #+#    #+#             */
-/*   Updated: 2017/06/30 10:32:04 by anonymous        ###   ########.fr       */
+/*   Updated: 2017/07/05 22:33:52 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	change_dir(t_env **begin, char **args, int p)
 	if  (!error)
 	{
 		add_or_change(begin, "OLDPWD", get_content(begin, 	"PWD"));
-		force_pwd(begin);
+		force_pwd(*begin);
 	}
 }
 

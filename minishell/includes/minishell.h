@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:32:31 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 20:07:52 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/07 19:21:31 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void				echo(char **str, t_env *env);
 **	env.c
 */
 
-void				force_pwd(t_env **begin);
+void				force_pwd(t_env *env);
 char				*get_content(t_env **begin, char *name);
 t_env				*get_env(char **environ);
 
@@ -62,12 +62,13 @@ t_env				*get_env(char **environ);
 void				ft_unsetenv(t_env **begin, char **var_todel);
 void				ft_env(t_env **env, char **args, char **environ);
 void				ft_setenv(t_env **begin, char **var_con);
+void				display_env(t_env **begin);
 
 /*
 **	env_list.c
 */
 
-int					delete_t_env(t_env **begin, char *variable_to_delete);
+void				delete_t_env(t_env **begin, char *variable_to_delete);
 void				add_or_change(t_env **begin, char *name, char *content);
 void				push_alpha(t_env **begin, t_env *new);
 void				create_t_env(t_env **begin, char *name, char *content);
@@ -101,7 +102,7 @@ void				exit_ms(t_env **env);
 */
 
 void				goto_func(char **args, t_env *env, char **environ);
-void				mini_core(t_env *begin, char **environ, int n);
+void				mini_core(t_env **begin, char **environ, int n);
 
 /*
 **	pwd.c

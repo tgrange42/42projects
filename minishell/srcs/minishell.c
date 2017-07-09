@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 15:01:14 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 20:07:55 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/05 16:30:21 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int		main(void)
 	t_env			*env;
 
 	env = get_env(environ);
-	mini_core(env, environ, 1);
+	mini_core(&env, environ, 1);
 	return (0);
 }
