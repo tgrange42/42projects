@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 18:55:59 by tgrange           #+#    #+#             */
-/*   Updated: 2016/12/17 12:41:41 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/24 16:23:51 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ char	*ft_revstr(char *str)
 		j++;
 	}
 	ret[j] = '\0';
+	ft_strdel(&str);
 	return (ret);
 }

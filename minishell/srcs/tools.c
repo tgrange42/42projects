@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:17:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/07 18:45:31 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/24 16:34:02 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		display_prompt(int *n)
 			ft_putchar('/');
 		if (tmp2[i])
 			ft_putchar(tmp2[i]);
-		while (tmp2[i] && tmp2[i] && tmp2[i] != '/')
+		while (tmp2[i] && tmp2[i] != '/')
 			i++;
 	}
 	if (tmp[1])
@@ -46,7 +46,9 @@ char		*get_path(char *path, char *name, char sep)
 	char	*ret;
 
 	if (!path)
+	{
 		return (ft_strdup(name));
+	}
 	l = ft_strlen(path) + ft_strlen(name) + 2;
 	if (!(ret = (char *)ft_memalloc(sizeof(char) * l)))
 		return (NULL);
@@ -71,7 +73,7 @@ void		del_tabstr(char ***str)
 		return ;
 	while ((*str)[i])
 		ft_strdel(&((*str)[i++]));
-	ft_memdel((void **)*str);
+	free(*str);
 }
 
 char		**t_env_to_tab(t_env **begin)
