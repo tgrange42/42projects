@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:21:18 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/05 22:34:31 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/26 17:38:06 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	goto_func(char **args, t_env *env, char **environ)
 
 	if (!args)
 		return ;
-	if (ft_strequ("env", args[0]))
+	else if (ft_strequ("env", args[0]))
 		ft_env(&env, args, environ);
 	else if (ft_strequ("echo", args[0]))
 		echo(&args[1], env);
@@ -31,17 +31,23 @@ void	goto_func(char **args, t_env *env, char **environ)
 	else if (ft_strequ("setenv", args[0]))
 		ft_setenv(&env, &args[1]);
 	else if (ft_strequ("unsetenv", args[0]))
-		ft_unsetenv(&env, &args[1]);
+		ft_unsetenv(env, &args[1]);
 	else
 	{
 		env_char = t_env_to_tab(&env);
 		search_for_bin(&env, args[0], args, env_char);
 		del_tabstr(&env_char);
 	}
-
 }
 
-void	mini_core(t_env **env, char **environ, int n)
+void	escape_ctrl_d(int *i, int g)
+{
+	*i = 0;
+	if (!g)
+		ft_putendl("");
+}
+
+void	mini_core(t_env **env, char **environ, int g)
 {
 	char	*buf;
 	char	**args;
@@ -51,11 +57,11 @@ void	mini_core(t_env **env, char **environ, int n)
 	buf = NULL;
 	while (1)
 	{
-		display_prompt(&n);
-		get_next_line(0, &buf);
-		if (buf[0])
+		display_prompt(env);
+		g = get_next_line(0, &buf);
+		if (buf[0] || !g)
 		{
-			i = 0;
+			escape_ctrl_d(&i, g);
 			lines = ft_strsplit(buf, ';');
 			while (lines && lines[i])
 			{

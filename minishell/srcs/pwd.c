@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:19:25 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/05 22:34:11 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/26 17:39:49 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	pwd(t_env *env)
 	char	*buf;
 
 	buf = NULL;
-	buf = getcwd(buf, PATH_MAX);
+	buf = get_content(&env, "PWD");
 	ft_putendl(buf);
-	ft_strdel(&buf);
-	force_pwd(env);
 }

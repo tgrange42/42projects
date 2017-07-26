@@ -6,24 +6,24 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:17:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/24 16:34:02 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/26 16:10:03 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		display_prompt(int *n)
+void		display_prompt(t_env **begin)
 {
-	char	*tmp;
 	char	*tmp2;
 	int		i;
 
 	i = 0;
-	if (*n)
-		ft_putchar('\n');
-	*n = 0;
-	tmp2 = getcwd(NULL, PATH_MAX);
-	tmp = ft_strrchr(tmp2, '/');
+	tmp2 = NULL;
+	if (begin && variable_exist(begin, "PWD") &&
+		ft_strchr(get_content(begin, "PWD"), '/'))
+		tmp2 = ft_strdup(get_content(begin, "PWD"));
+	else
+		tmp2 = getcwd(tmp2, PATH_MAX);
 	ft_putstr("minishell@");
 	while (tmp2[i])
 	{
@@ -34,8 +34,8 @@ void		display_prompt(int *n)
 		while (tmp2[i] && tmp2[i] != '/')
 			i++;
 	}
-	if (tmp[1])
-		ft_putstr(&tmp[2]);
+	if (!ft_strequ("/", tmp2))
+		ft_putstr(ft_strrchr(tmp2, '/') + 2);
 	ft_strdel(&tmp2);
 	ft_putstr("> ");
 }
@@ -46,9 +46,7 @@ char		*get_path(char *path, char *name, char sep)
 	char	*ret;
 
 	if (!path)
-	{
 		return (ft_strdup(name));
-	}
 	l = ft_strlen(path) + ft_strlen(name) + 2;
 	if (!(ret = (char *)ft_memalloc(sizeof(char) * l)))
 		return (NULL);
@@ -58,7 +56,7 @@ char		*get_path(char *path, char *name, char sep)
 	return (ret);
 }
 
-void	equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2)
+void		equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2)
 {
 	*t1 = *t2;
 	*s1 = *s2;

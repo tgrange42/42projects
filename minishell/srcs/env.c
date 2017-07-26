@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:22:35 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/05 22:31:58 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/26 17:06:56 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_env		*get_env(char **environ)
 				(environ[i - 1][0] != '=' ? tmp[1] : tmp[0]));
 		del_tabstr(&tmp);
 	}
-	force_pwd(ret);
 	increase_shlvl(&ret);
 	add_or_change(&ret, "SHELL", "minishell");
 	delete_t_env(&ret, "OLDPWD");
+	force_pwd(ret);
 	return (ret);
 }

@@ -6,36 +6,19 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:53:24 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/07 19:21:18 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/26 17:50:12 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	display_env(t_env **begin)
-{
-	t_env	*env;
-
-	env = *begin;
-	while (env)
-	{
-		if (env->name)
-		{
-			ft_putstr(env->name);
-			ft_putchar('=');
-			ft_putendl(env->content);
-		}
-		env = env->next;
-	}
-}
-
-void	ft_unsetenv(t_env **begin, char **var_todel)
+void	ft_unsetenv(t_env *begin, char **var_todel)
 {
 	int		i;
 
 	i = 0;
 	while (var_todel[i])
-		delete_t_env(begin, var_todel[i++]);
+		delete_t_env(&begin, var_todel[i++]);
 }
 
 void	ft_env_equal(t_env **begin, char **args)
@@ -49,7 +32,7 @@ void	ft_env_equal(t_env **begin, char **args)
 	copy_env = copy_t_env(begin);
 	while (args[i] && ft_strchr(args[i], '='))
 	{
-		split = ft_strsplit(args[i++], '=');
+		split = split_var_con(args[i++]);
 		if (split && split[0])
 			add_or_change(&copy_env, (args[i - 1][0] != '=' ? split[0] : NULL),
 				(args[i - 1][0] != '=' ? split[1] : split[0]));
@@ -102,12 +85,16 @@ void	ft_setenv(t_env **begin, char **var_con)
 	while (var_con[i])
 	{
 		if (!ft_strchr(var_con[i], '='))
-			ft_putendl_fd("minishell: setenv: usage: setenv \"variable=content\"", 2);
+		{
+			ft_putstr_fd("minishell: setenv: usage:", 2);
+			ft_putendl_fd(" setenv \"variable=content\"", 2);
+		}
 		else
 		{
-			split = ft_strsplit(var_con[i], '=');
-			if (split [1] && split[1][0] == '$')
-				add_or_change(begin, split[0], get_content(begin, &split[1][1]));
+			split = split_var_con(var_con[i]);
+			if (split[1] && split[1][0] == '$')
+				add_or_change(begin, split[0], get_content(begin,
+					&split[1][1]));
 			else
 				add_or_change(begin, (var_con[i][0] != '=' ? split[0] : NULL),
 				(var_con[i][0] != '=' ? split[1] : split[0]));

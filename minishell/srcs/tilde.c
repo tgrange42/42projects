@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 17:51:43 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/03 19:52:30 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/26 17:24:12 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	*replace_tilde(char *str, t_env **begin, int k)
 	if (k == 2)
 		tmp = getcwd(tmp, PATH_MAX);
 	if (k == 3)
-		tmp = ft_strdup(get_content(begin, "OLDPWD"));
+		tmp = (get_content(begin, "OLDPWD") ? ft_strdup(get_content(begin,
+			"OLDPWD")) : ft_strdup("-"));
 	if (!tmp)
 		return (str);
 	l = ft_strlen(tmp) + ft_strlen(str);

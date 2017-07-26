@@ -6,7 +6,7 @@
 #    By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/29 17:21:19 by tgrange           #+#    #+#              #
-#    Updated: 2017/07/05 22:33:22 by tgrange          ###   ########.fr        #
+#    Updated: 2017/07/25 13:21:18 by tgrange          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS =		minishell.c \
 			env_list.c \
 			env_list2.c \
 			tools.c \
+			tools2.c \
 			env_functions.c \
 			echo.c \
 			pwd.c \

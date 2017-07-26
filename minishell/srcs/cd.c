@@ -6,52 +6,60 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 14:41:04 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/05 22:33:52 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/07/26 17:39:40 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	change_dir(t_env **begin, char **args, int p)
+void	change_dir(t_env **begin, char *path)
 {
-	int		error;
+	DIR		*test;
 
-	error = 0;
-	if (ft_strequ("-", args[p]))
+	test = opendir(path);
+	if (!access(path, F_OK | R_OK) && test)
 	{
-		if (get_content(begin, "OLDPWD"))
-			chdir(get_content(begin, "OLDPWD"));
-		else
-		{
-			ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
-			error = 1;
-		}
-	}
-	else if (!args[p] || ft_strequ("~", args[p]))
-	{
-		if (get_content(begin, "HOME"))
-			chdir(get_content(begin, "HOME"));
-		else
-		{
-			ft_putendl_fd("minishell: cd: HOME not set", 2);
-			error = 1;
-		}
+		chdir(path);
+		add_or_change(begin, "OLDPWD", get_content(begin, "PWD"));
+		force_pwd(*begin);
+		closedir(test);
 	}
 	else
-		chdir(args[p]);
-	if  (!error)
 	{
-		add_or_change(begin, "OLDPWD", get_content(begin, 	"PWD"));
-		force_pwd(*begin);
+		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd(path, 2);
+		if (access(path, F_OK))
+			ft_putendl_fd(" not such file or directory", 2);
+		else if (access(path, R_OK))
+			ft_putendl_fd(" permission denied", 2);
+		else
+			ft_putendl_fd(" not a directory", 2);
 	}
+}
+
+void	cd_error(char *str)
+{
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(" not set", 2);
 }
 
 void	cd(t_env **begin, char **args)
 {
-	int		p;
-
-	p = 0;
-	if (ft_strequ("-P", args[0]))
-		p = 1;
-	change_dir(begin, args, p);
+	if (ft_strequ("-", args[0]))
+	{
+		if (get_content(begin, "OLDPWD"))
+			change_dir(begin, get_content(begin, "OLDPWD"));
+		else
+			cd_error("OLDPWD");
+	}
+	else if (ft_strequ("~", args[0]) || !args[0])
+	{
+		if (get_content(begin, "HOME"))
+			change_dir(begin, get_content(begin, "HOME"));
+		else
+			cd_error("HOME");
+	}
+	else
+		change_dir(begin, args[0]);
 }
