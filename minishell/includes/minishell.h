@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:32:31 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/26 17:46:36 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/08/11 16:15:14 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void				create_t_env(t_env **begin, char *name, char *content);
 */
 
 t_env				*copy_t_env(t_env **begin);
+t_env				*copy_t_env2(t_env **begin, char *var);
 
 /*
 **	exec_bin.c
@@ -133,5 +134,6 @@ int					variable_exist(t_env **begin, char *name);
 void				display_env(t_env **begin);
 int					t_env_len(t_env **begin);
 char				**split_var_con(char *str);
+int					count_lst(t_env **begin);
 
 #endif

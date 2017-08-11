@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:53:24 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/26 17:50:12 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/08/11 16:17:37 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 void	ft_unsetenv(t_env *begin, char **var_todel)
 {
+	// int		i;
+
+	// i = 0;
+	// while (var_todel[i])
+	// 	delete_t_env(&begin, var_todel[i++]);
+	// // if (!count_lst(&begin))
+	// // 	begin = NULL;
 	int		i;
 
 	i = 0;
 	while (var_todel[i])
-		delete_t_env(&begin, var_todel[i++]);
+		begin = copy_t_env2(&begin, var_todel[i++]);
 }
 
 void	ft_env_equal(t_env **begin, char **args)
@@ -59,7 +66,8 @@ void	tmp_delete(t_env **begin, char **args)
 		return ;
 	}
 	copy_env = copy_t_env(begin);
-	delete_t_env(&copy_env, args[0]);
+	// delete_t_env(&copy_env, args[0]);
+	copy_env = copy_t_env2(&copy_env, args[0]);
 	ft_env_equal(&copy_env, &args[1]);
 	delete_list(&copy_env);
 }

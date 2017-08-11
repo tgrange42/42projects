@@ -6,11 +6,26 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/21 16:31:56 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/26 17:46:23 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/08/11 15:53:18 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		count_lst(t_env **begin)
+{
+	t_env *tmp;
+	int		i;
+
+	i = 0;
+	tmp = *begin;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 char	**split_var_con(char *str)
 {
