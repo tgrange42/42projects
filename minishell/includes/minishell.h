@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:32:31 by tgrange           #+#    #+#             */
-/*   Updated: 2017/08/11 16:15:14 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/05 18:32:01 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,60 +38,56 @@ typedef	struct		s_env
 **	cd.c
 */
 
-void				cd(t_env **begin, char **args);
+void				cd(char **env, char **args);
 
 /*
 **	echo.c
 */
 
-void				echo2(char *str, t_env *env);
-void				echo(char **str, t_env *env);
+void				echo2(char *str, char **env);
+void				echo(char **str, char **env);
 
 /*
 **	env.c
 */
 
-void				force_pwd(t_env *env);
-char				*get_content(t_env **begin, char *name);
-t_env				*get_env(char **environ);
+char				**force_pwd(char **env);
+char				*get_content(char **env, char *name);
+char				**get_env(char **environ);
 
 /*
 **	env_functions.c
 */
 
-void				ft_unsetenv(t_env *begin, char **var_todel);
-void				ft_env(t_env **env, char **args, char **environ);
-void				ft_setenv(t_env **begin, char **var_con);
+char				**ft_unsetenv(char **env, char **var_todel);
+void				ft_env(char **args, char **environ);
+char				**ft_setenv(char **env, char **var_con);
 
 /*
 **	env_list.c
 */
 
-void				delete_t_env(t_env **begin, char *variable_to_delete);
-void				add_or_change(t_env **begin, char *name, char *content);
-void				push_alpha(t_env **begin, t_env *new);
-void				create_t_env(t_env **begin, char *name, char *content);
+char				**delete_var(char **env, char *variable_to_delete);
+char				**change_variable(char **env, char *name, char *content);
 
 /*
 **	env_list2.c
 */
 
-t_env				*copy_t_env(t_env **begin);
-t_env				*copy_t_env2(t_env **begin, char *var);
+// t_env				*copy_t_env(t_env **begin);
+// t_env				*copy_t_env2(t_env **begin, char *var);
 
 /*
 **	exec_bin.c
 */
 
-void				search_for_bin(t_env **begin, char *bin_to_srch,
-	char **args, char **environ);
+void				search_for_bin(char *bin_to_srch, char **args, char **env);
 
 /*
 **	exit_ms.c
 */
 
-void				delete_list(t_env **env);
-void				exit_ms(t_env **env);
+void				exit_ms(char **env);
 
 /*
 **	minishell.c
@@ -101,39 +97,39 @@ void				exit_ms(t_env **env);
 **	mini_core.c
 */
 
-void				goto_func(char **args, t_env *env, char **environ);
-void				mini_core(t_env **begin, char **environ, int g);
+void				goto_func(char **args, char ***environ);
+void				mini_core(char **environ, int g);
 
 /*
 **	pwd.c
 */
 
-void				pwd(t_env *env);
+void				pwd(char **env);
 
 /*
 **	tilde.c
 */
 
-void				get_tilde(char **args, t_env **begin);
+void				get_tilde(char **args, char **env);
 
 /*
 **	tools.c
 */
 
 char				*get_path(char *path, char *name, char sep);
-void				display_prompt(t_env **begin);
+void				display_prompt(char **env);
 void				del_tabstr(char ***str);
-void				equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2);
-char				**t_env_to_tab(t_env **begin);
+// void				equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2);
+char				**cpy_tab(char **src);
 
 /*
 **	tools2.c
 */
 
-int					variable_exist(t_env **begin, char *name);
-void				display_env(t_env **begin);
-int					t_env_len(t_env **begin);
+int					variable_exist(char **env, char *name);
+void				display_env(char **env);
+// int					t_env_len(t_env **begin);
 char				**split_var_con(char *str);
-int					count_lst(t_env **begin);
+// int					count_lst(t_env **begin);
 
 #endif

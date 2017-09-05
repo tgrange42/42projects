@@ -6,37 +6,38 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:17:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/26 16:10:03 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/04 18:22:10 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		display_prompt(t_env **begin)
+void		display_prompt(char **env)
 {
-	char	*tmp2;
-	int		i;
+	(void)env;
+	// char	*tmp2;
+	// int		i;
 
-	i = 0;
-	tmp2 = NULL;
-	if (begin && variable_exist(begin, "PWD") &&
-		ft_strchr(get_content(begin, "PWD"), '/'))
-		tmp2 = ft_strdup(get_content(begin, "PWD"));
-	else
-		tmp2 = getcwd(tmp2, PATH_MAX);
-	ft_putstr("minishell@");
-	while (tmp2[i])
-	{
-		if (tmp2[i++] == '/')
-			ft_putchar('/');
-		if (tmp2[i])
-			ft_putchar(tmp2[i]);
-		while (tmp2[i] && tmp2[i] != '/')
-			i++;
-	}
-	if (!ft_strequ("/", tmp2))
-		ft_putstr(ft_strrchr(tmp2, '/') + 2);
-	ft_strdel(&tmp2);
+	// i = 0;
+	// tmp2 = NULL;
+	// if (begin && variable_exist(begin, "PWD") &&
+	// 	ft_strchr(get_content(begin, "PWD"), '/'))
+	// 	tmp2 = ft_strdup(get_content(begin, "PWD"));
+	// else
+	// 	tmp2 = getcwd(tmp2, PATH_MAX);
+	// ft_putstr("minishell@");
+	// while (tmp2[i])
+	// {
+	// 	if (tmp2[i++] == '/')
+	// 		ft_putchar('/');
+	// 	if (tmp2[i])
+	// 		ft_putchar(tmp2[i]);
+	// 	while (tmp2[i] && tmp2[i] != '/')
+	// 		i++;
+	// }
+	// if (!ft_strequ("/", tmp2))
+	// 	ft_putstr(ft_strrchr(tmp2, '/') + 2);
+	// ft_strdel(&tmp2);
 	ft_putstr("> ");
 }
 
@@ -74,23 +75,19 @@ void		del_tabstr(char ***str)
 	free(*str);
 }
 
-char		**t_env_to_tab(t_env **begin)
+char		**cpy_tab(char **src)
 {
 	char	**ret;
 	int		i;
-	t_env	*tmp;
 
-	if (!begin || !*begin)
-		return (NULL);
-	tmp = *begin;
 	i = 0;
-	if (!(ret = (char **)ft_memalloc(sizeof(ret) * (t_env_len(begin) + 1))))
+	ret = NULL;
+	if (!(ret = (char **)ft_memalloc(sizeof(char *) * (ft_tablen(src) + 1))))
 		return (NULL);
-	while (tmp)
+	while (src[i])
 	{
-		if (tmp->name)
-			ret[i++] = get_path(tmp->name, tmp->content, '=');
-		tmp = tmp->next;
+		ret[i] = ft_strdup(src[i]);
+		i++;
 	}
 	return (ret);
 }

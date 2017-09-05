@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:52:01 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/26 17:40:35 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/05 18:00:13 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,19 @@ int		is_bin_indir(char *path, char *name)
 **	else
 */
 
-void	search_for_bin(t_env **begin, char *bin_to_srch, char **args,
-	char **environ)
+void	search_for_bin(char *bin_to_srch, char **args,
+	char **env)
 {
 	char	**paths;
 	char	*bin_path;
 	int		i;
 
 	i = 0;
-	if (!variable_exist(begin, "PATH"))
-		execute(bin_to_srch, args, environ);
+	if (!variable_exist(env, "PATH"))
+		execute(bin_to_srch, args, env);
 	else
 	{
-		paths = ft_strsplit(get_content(begin, "PATH"), ':');
+		paths = ft_strsplit(get_content(env, "PATH"), ':');
 		while (paths[i])
 		{
 			if (is_bin_indir(paths[i], bin_to_srch))
@@ -88,7 +88,7 @@ void	search_for_bin(t_env **begin, char *bin_to_srch, char **args,
 		}
 		bin_path = get_path(paths[i], bin_to_srch, '/');
 		del_tabstr(&paths);
-		execute(bin_path, args, environ);
+		execute(bin_path, args, env);
 		ft_strdel(&bin_path);
 	}
 }

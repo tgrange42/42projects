@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:47:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/08/11 16:13:35 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/05 17:34:29 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,67 +38,34 @@ void	destroy_t_env(t_env *to_destroy)
 	}
 }
 
-// void	delete_t_env(t_env **begin, char *variable_to_delete)
-// {
-// 	// t_env	*tmp;
-// 	// t_env	*previous;
-// 	// t_env	*current;
-
-// 	// ft_putendl((*begin)->name);
-// 	// if (*begin && ft_strequ(variable_to_delete, (*begin)->name))
-// 	// {
-// 	// 	tmp = *begin;
-// 	// 	*begin = (*begin)->next;
-// 	// 	destroy_t_env(tmp);
-// 	// 	return ;
-// 	// }
-// 	// else if (*begin)
-// 	// {
-// 	// 	ft_putendl("mdr");
-// 	// 	current = (*begin)->next;
-// 	// 	previous = *begin;
-// 	// 	while (previous && current)
-// 	// 	{
-// 	// 		if (ft_strequ(variable_to_delete, current->name))
-// 	// 		{
-// 	// 			tmp = current;
-// 	// 			previous->next = current->next;
-// 	// 			destroy_t_env(tmp);
-// 	// 			return ;
-// 	// 		}
-// 	// 		previous = current;
-// 	// 		current = current->next;
-// 	// 	}
-// 	// }
-// 	t_env	*copy_env;
-
-// 	copy_env = copy_t_env(begin);
-// }
-
-void	add_or_change(t_env **begin, char *name, char *content)
+char	**delete_var(char **env, char *variable_to_delete)
 {
-	t_env	*env;
+	char	**ret;
+	int		i;
+	int		j;
 
-	if (!variable_exist(begin, name))
-		create_t_env(begin, name, content);
-	else
+	j = 0;
+	i = 0;
+	if (!(ret = (char **)ft_memalloc(sizeof(char *) * (ft_tablen(env) + 1))))
+		return (NULL);
+	while (env[i])
 	{
-		env = *begin;
-		while (env && !ft_strequ(name, env->name))
-			env = env->next;
-		ft_strdel(&env->content);
-		env->content = ft_strdup(content);
+		if (!ft_strnequ(variable_to_delete, env[i], ft_strlen(variable_to_delete)))
+			ret[j++] = ft_strdup(env[i]);
+		i++;
 	}
+	del_tabstr(&env);
+	return (ret);
 }
 
-void	create_t_env(t_env **begin, char *name, char *content)
-{
-	t_env	*tmp;
+// void	create_t_env(t_env **begin, char *name, char *content)
+// {
+// 	t_env	*tmp;
 
-	if (!(tmp = (t_env *)ft_memalloc(sizeof(t_env))))
-		return ;
-	tmp->name = ft_strdup(name);
-	tmp->content = ft_strdup(content);
-	tmp->next = NULL;
-	push_alpha(begin, tmp);
-}
+// 	if (!(tmp = (t_env *)ft_memalloc(sizeof(t_env))))
+// 		return ;
+// 	tmp->name = ft_strdup(name);
+// 	tmp->content = ft_strdup(content);
+// 	tmp->next = NULL;
+// 	push_alpha(begin, tmp);
+// }

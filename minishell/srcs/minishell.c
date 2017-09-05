@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 15:01:14 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/26 17:33:33 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/05 17:44:23 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	sig_c(int lol)
 int		main(void)
 {
 	extern char		**environ;
-	t_env			*env;
+	char			**env;
 
 	signal(SIGINT, sig_c);
 	env = get_env(environ);
-	mini_core(&env, environ, 1);
+	mini_core(env, 1);
 	return (0);
 }

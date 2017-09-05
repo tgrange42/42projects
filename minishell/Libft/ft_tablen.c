@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 01:22:02 by tgrange           #+#    #+#             */
-/*   Updated: 2017/04/13 01:05:14 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/05 17:35:15 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int		ft_tablen(char **tab)
 {
 	int		ret;
 
+	if (!tab)
+		return (0);
 	ret = 0;
 	while (tab[ret])
 		ret++;

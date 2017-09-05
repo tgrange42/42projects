@@ -6,71 +6,113 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:22:35 by tgrange           #+#    #+#             */
-/*   Updated: 2017/08/11 16:16:38 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/05 17:44:02 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char		*get_content(t_env **begin, char *name)
+char		*get_content(char **env, char *name)
 {
-	t_env	*env;
+	int		i;
 
-	env = *begin;
-	while (env)
+	i = 0;
+	while (env[i])
 	{
-		if (ft_strequ(name, env->name))
-			return (env->content);
-		env = env->next;
+		if (ft_strnequ(name, env[i], ft_strlen(name)))
+			return (ft_strchr(env[i], '=') + 1);
+		i++;
 	}
 	return (NULL);
 }
 
-void		force_pwd(t_env *env)
+char		**force_pwd(char **env)
 {
 	char	*buf;
 
 	buf = NULL;
 	buf = getcwd(buf, PATH_MAX);
-	add_or_change(&env, "PWD", buf);
+	env = change_variable(env, "PWD", buf);
 	ft_strdel(&buf);
+	return (env);
 }
 
-void		increase_shlvl(t_env **begin)
+int		variable_exist(char **env, char *var)
 {
-	int		tmp;
-	char	*tmp2;
-
-	if (get_content(begin, "SHLVL"))
-	{
-		tmp = ft_atoi(get_content(begin, "SHLVL"));
-		tmp2 = ft_itoa(tmp + 1);
-		add_or_change(begin, "SHLVL", tmp2);
-		ft_strdel(&tmp2);
-	}
-	else
-		add_or_change(begin, "SHLVL", "1");
-}
-
-t_env		*get_env(char **environ)
-{
-	t_env	*ret;
 	int		i;
-	char	**tmp;
 
 	i = 0;
-	ret = NULL;
-	while (environ[i])
+	if (!env)
+		return (0);
+	while (env[i])
 	{
-		tmp = ft_strsplit(environ[i++], '=');
-		create_t_env(&ret, (environ[i - 1][0] != '=' ? tmp[0] : NULL),
-				(environ[i - 1][0] != '=' ? tmp[1] : tmp[0]));
-		del_tabstr(&tmp);
+		if (ft_strnequ(var, env[i], ft_strlen(var)))
+			return (1);
+		i++;
 	}
-	increase_shlvl(&ret);
-	add_or_change(&ret, "SHELL", "minishell");
-	// delete_t_env(&ret, "OLDPWD");
-	ret = copy_t_env2(&ret, "OLDPWD");
-	force_pwd(ret);
+	return (0);
+}
+
+char	**add_var(char **env, char *var, char *content)
+{
+	char	**ret;
+	int		i;
+
+	i = 0;
+	if (!(ret = (char **)ft_memalloc(sizeof(char *) * (ft_tablen(env) + 2))))
+		return (NULL);
+	while (env[i])
+	{
+		ret[i] = ft_strdup(env[i]);
+		i++;
+	}
+	ret[i] = get_path(var, content, '=');
+	del_tabstr(&env);
+	return (ret);
+}
+
+char	**change_variable(char **env, char *name, char *content)
+{
+	int		i;
+
+	i = 0;
+	if (variable_exist(env, name))
+	{
+		while (!ft_strnequ(name, env[i], ft_strlen(name)))
+			i++;
+		ft_strdel(&env[i]);
+		env[i] = get_path(name, content, '=');
+	}
+	else
+		return (add_var(env, name, content));
+	return (env);
+}
+
+char		**increase_shlvl(char **env)
+{
+	char	*tmp;
+
+	if (variable_exist(env, "SHLVL"))
+	{
+		tmp = ft_itoa(ft_atoi(get_content(env, "SHLVL")) + 1);
+		env = change_variable(env, "SHLVL", tmp);
+		ft_strdel(&tmp);
+	}
+	else
+		env = change_variable(env, "SHLVL", "1");
+	return (env);
+}
+
+char		**get_env(char **environ)
+{
+	int		i;
+	char	**ret;
+
+	i = 0;
+	ret = cpy_tab(environ);
+	ret = increase_shlvl(ret);
+	ret = change_variable(ret, "SHELL", "minishell");
+	ret = delete_var(ret, "OLDPWD");
+	ret = force_pwd(ret);
 	return (ret);
 }

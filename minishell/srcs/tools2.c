@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/21 16:31:56 by tgrange           #+#    #+#             */
-/*   Updated: 2017/08/11 15:53:18 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/05 16:31:54 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,27 @@ char	**split_var_con(char *str)
 	return (ret);
 }
 
-int		variable_exist(t_env **begin, char *name)
+// int		variable_exist(t_env **begin, char *name)
+// {
+// 	t_env	*tmp;
+
+// 	tmp = *begin;
+// 	while (tmp)
+// 	{
+// 		if (ft_strequ(name, tmp->name))
+// 			return (1);
+// 		tmp = tmp->next;
+// 	}
+// 	return (0);
+// }
+
+void	display_env(char **env)
 {
-	t_env	*tmp;
+	int		i;
 
-	tmp = *begin;
-	while (tmp)
-	{
-		if (ft_strequ(name, tmp->name))
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
-void	display_env(t_env **begin)
-{
-	t_env	*env;
-
-	env = *begin;
-	while (env)
-	{
-		if (env->name)
-		{
-			ft_putstr(env->name);
-			ft_putchar('=');
-			ft_putendl(env->content);
-		}
-		env = env->next;
-	}
+	i = 0;
+	while (env[i])
+		ft_putendl(env[i++]);
 }
 
 int		t_env_len(t_env **begin)
