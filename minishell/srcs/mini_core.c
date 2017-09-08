@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:21:18 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/05 18:31:00 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/07 19:16:48 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	goto_func(char **args, char ***env)
 		return ;
 	else if (ft_strequ("env", args[0]))
 		ft_env(args, *env);
-	// else if (ft_strequ("echo", args[0]))
-	// 	echo(&args[1], env);
+	else if (ft_strequ("echo", args[0]))
+		echo(&args[1], *env);
 	else if (ft_strequ("exit", args[0]))
 		exit_ms(*env);
-	// else if (ft_strequ("cd", args[0]))
-	// 	cd(env, &args[1]);
+	else if (ft_strequ("cd", args[0]))
+		cd(env, &args[1]);
 	else if (ft_strequ("pwd", args[0]))
 		pwd(*env);
 	else if (ft_strequ("setenv", args[0]))

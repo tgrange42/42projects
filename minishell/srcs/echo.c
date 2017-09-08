@@ -6,19 +6,19 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 18:33:20 by tgrange           #+#    #+#             */
-/*   Updated: 2017/07/25 16:14:24 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/07 19:16:47 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	echo2(char *str, t_env *env)
+void	echo2(char *str, char **env)
 {
-	ft_putstr(get_content(&env, str));
+	ft_putstr(get_content(env, str));
 	ft_strdel(&str);
 }
 
-void	echo(char **str, t_env *env)
+void	echo(char **str, char **env)
 {
 	int		i;
 	int		j;

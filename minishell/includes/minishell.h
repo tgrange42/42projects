@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:32:31 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/05 18:32:01 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/07 19:16:36 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef	struct		s_env
 **	cd.c
 */
 
-void				cd(char **env, char **args);
+void				cd(char ***env, char **args);
 
 /*
 **	echo.c

@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:47:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/05 17:34:29 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/07 19:16:45 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,6 @@ void	push_alpha(t_env **begin, t_env *new)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
-	}
-}
-
-void	destroy_t_env(t_env *to_destroy)
-{
-	if (to_destroy)
-	{
-		ft_strdel(&to_destroy->name);
-		ft_strdel(&to_destroy->content);
-		free(to_destroy);
-		to_destroy = NULL;
 	}
 }
 
