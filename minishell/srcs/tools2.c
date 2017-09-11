@@ -6,26 +6,11 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/21 16:31:56 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/05 16:31:54 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/08 14:13:56 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int		count_lst(t_env **begin)
-{
-	t_env *tmp;
-	int		i;
-
-	i = 0;
-	tmp = *begin;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
 
 char	**split_var_con(char *str)
 {
@@ -40,40 +25,12 @@ char	**split_var_con(char *str)
 	return (ret);
 }
 
-// int		variable_exist(t_env **begin, char *name)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = *begin;
-// 	while (tmp)
-// 	{
-// 		if (ft_strequ(name, tmp->name))
-// 			return (1);
-// 		tmp = tmp->next;
-// 	}
-// 	return (0);
-// }
-
 void	display_env(char **env)
 {
 	int		i;
 
 	i = 0;
-	while (env[i])
-		ft_putendl(env[i++]);
-}
-
-int		t_env_len(t_env **begin)
-{
-	int		i;
-	t_env	*tmp;
-
-	tmp = *begin;
-	i = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
+	if (env)
+		while (env[i])
+			ft_putendl(env[i++]);
 }

@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:32:31 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/07 19:16:36 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/08 14:17:12 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,10 @@
 # include "../Libft/libft.h"
 
 /*
-**	structs
+**	variables
 */
 
-typedef	struct		s_env
-{
-	char			*name;
-	char			*content;
-	struct s_env	*next;
-}					t_env;
+int					g_in_child;
 
 /*
 **	cd.c
@@ -64,18 +59,11 @@ void				ft_env(char **args, char **environ);
 char				**ft_setenv(char **env, char **var_con);
 
 /*
-**	env_list.c
+**	env_modi.c
 */
 
 char				**delete_var(char **env, char *variable_to_delete);
 char				**change_variable(char **env, char *name, char *content);
-
-/*
-**	env_list2.c
-*/
-
-// t_env				*copy_t_env(t_env **begin);
-// t_env				*copy_t_env2(t_env **begin, char *var);
 
 /*
 **	exec_bin.c
@@ -117,9 +105,8 @@ void				get_tilde(char **args, char **env);
 */
 
 char				*get_path(char *path, char *name, char sep);
-void				display_prompt(char **env);
+void				display_prompt(void);
 void				del_tabstr(char ***str);
-// void				equal_equal(t_env **t1, t_env **t2, t_env **s1, t_env **s2);
 char				**cpy_tab(char **src);
 
 /*
@@ -128,8 +115,6 @@ char				**cpy_tab(char **src);
 
 int					variable_exist(char **env, char *name);
 void				display_env(char **env);
-// int					t_env_len(t_env **begin);
 char				**split_var_con(char *str);
-// int					count_lst(t_env **begin);
 
 #endif

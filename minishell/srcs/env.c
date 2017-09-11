@@ -6,36 +6,11 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:22:35 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/07 19:16:47 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/11 14:59:37 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char		*get_content(char **env, char *name)
-{
-	int		i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strnequ(name, env[i], ft_strlen(name)))
-			return (ft_strchr(env[i], '=') + 1);
-		i++;
-	}
-	return (NULL);
-}
-
-char		**force_pwd(char **env)
-{
-	char	*buf;
-
-	buf = NULL;
-	buf = getcwd(buf, PATH_MAX);
-	env = change_variable(env, "PWD", buf);
-	ft_strdel(&buf);
-	return (env);
-}
 
 int		variable_exist(char **env, char *var)
 {
@@ -61,7 +36,7 @@ char	**add_var(char **env, char *var, char *content)
 	i = 0;
 	if (!(ret = (char **)ft_memalloc(sizeof(char *) * (ft_tablen(env) + 2))))
 		return (NULL);
-	while (env[i])
+	while (env && env[i])
 	{
 		ret[i] = ft_strdup(env[i]);
 		i++;
@@ -76,7 +51,7 @@ char	**change_variable(char **env, char *name, char *content)
 	int		i;
 
 	i = 0;
-	if (variable_exist(env, name))
+	if (env && variable_exist(env, name))
 	{
 		while (!ft_strnequ(name, env[i], ft_strlen(name)))
 			i++;
@@ -88,7 +63,7 @@ char	**change_variable(char **env, char *name, char *content)
 	return (env);
 }
 
-char		**increase_shlvl(char **env)
+char	**increase_shlvl(char **env)
 {
 	char	*tmp;
 
@@ -103,7 +78,7 @@ char		**increase_shlvl(char **env)
 	return (env);
 }
 
-char		**get_env(char **environ)
+char	**get_env(char **environ)
 {
 	int		i;
 	char	**ret;

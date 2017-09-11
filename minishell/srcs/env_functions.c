@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 16:53:24 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/07 19:16:34 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/08 12:41:04 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void	ft_env_equal(char **env, char **args)
 	if (!args[i])
 		display_env(cpy_env);
 	else
-	{
 		goto_func(&args[i], &cpy_env);
-		del_tabstr(&cpy_env);
-	}
 	del_tabstr(&cpy_env);
 }
 
@@ -56,10 +53,8 @@ void	tmp_delete(char ***env, char **args)
 		ft_putendl_fd("env: need argument", 2);
 		return ;
 	}
-	// copy_env = copy_t_env(begin);
-	// delete_t_env(&copy_env, args[0]);
 	env_cpy = cpy_tab(*env);
-	env_cpy = delete_var(*env, args[0]);
+	env_cpy = delete_var(env_cpy, args[0]);
 	ft_env_equal(env_cpy, &args[1]);
 	del_tabstr(&env_cpy);
 }

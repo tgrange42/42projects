@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_list.c                                         :+:      :+:    :+:   */
+/*   env_modi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/26 15:47:16 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/07 19:16:45 by tgrange          ###   ########.fr       */
+/*   Created: 2017/09/08 14:14:19 by tgrange           #+#    #+#             */
+/*   Updated: 2017/09/08 14:16:55 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	push_alpha(t_env **begin, t_env *new)
+char	*get_content(char **env, char *name)
 {
-	t_env	*tmp;
+	int		i;
 
-	if (!*begin)
-		*begin = new;
-	else
+	i = 0;
+	while (env[i])
 	{
-		tmp = *begin;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		if (ft_strnequ(name, env[i], ft_strlen(name)))
+			return (ft_strchr(env[i], '=') + 1);
+		i++;
 	}
+	return (NULL);
 }
 
 char	**delete_var(char **env, char *variable_to_delete)
@@ -39,22 +38,11 @@ char	**delete_var(char **env, char *variable_to_delete)
 		return (NULL);
 	while (env[i])
 	{
-		if (!ft_strnequ(variable_to_delete, env[i], ft_strlen(variable_to_delete)))
+		if (!ft_strnequ(variable_to_delete, env[i],
+			ft_strlen(variable_to_delete)))
 			ret[j++] = ft_strdup(env[i]);
 		i++;
 	}
 	del_tabstr(&env);
 	return (ret);
 }
-
-// void	create_t_env(t_env **begin, char *name, char *content)
-// {
-// 	t_env	*tmp;
-
-// 	if (!(tmp = (t_env *)ft_memalloc(sizeof(t_env))))
-// 		return ;
-// 	tmp->name = ft_strdup(name);
-// 	tmp->content = ft_strdup(content);
-// 	tmp->next = NULL;
-// 	push_alpha(begin, tmp);
-// }

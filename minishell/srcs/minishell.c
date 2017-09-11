@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 15:01:14 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/05 17:44:23 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/08 14:12:34 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 void	sig_c(int lol)
 {
 	(void)lol;
-	ft_putchar('\n');
-	display_prompt(NULL);
+	if (g_in_child == 1)
+	{
+		ft_putchar('\n');
+		display_prompt();
+	}
 }
 
 int		main(void)

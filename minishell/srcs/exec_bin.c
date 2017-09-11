@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:52:01 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/05 18:00:13 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/08 14:12:46 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	execute(char *bin_path, char **args, char **environ)
 
 	father = fork();
 	if (father > 0)
+	{
+		g_in_child = 0;
 		wait(&father);
+		g_in_child = 1;
+	}
 	else if (!father)
 	{
 		if (execve(bin_path, args, environ) == -1)
@@ -55,17 +59,6 @@ int		is_bin_indir(char *path, char *name)
 	}
 	return (t);
 }
-
-/*
-**	if (!get_content(begin, "PATH"))
-**	{
-**		if (!(paths = (char **)ft_memalloc(sizeof(paths) * 3)))
-**			return ;
-**		paths[0] = ft_strdup("/bin");
-**		paths[1] = ft_strdup("/usr/bin");
-**	}
-**	else
-*/
 
 void	search_for_bin(char *bin_to_srch, char **args,
 	char **env)

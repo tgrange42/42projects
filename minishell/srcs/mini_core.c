@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 15:21:18 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/07 19:16:48 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/09/08 14:13:04 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	goto_func(char **args, char ***env)
 {
-	// char	**env_char;
-
 	if (!args)
 		return ;
 	else if (ft_strequ("env", args[0]))
@@ -53,7 +51,7 @@ void	mini_core(char **environ, int g)
 	buf = NULL;
 	while (1)
 	{
-		display_prompt(environ);
+		display_prompt();
 		g = get_next_line(0, &buf);
 		if (buf[0] || !g)
 		{
