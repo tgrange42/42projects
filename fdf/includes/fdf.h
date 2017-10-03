@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 17:33:56 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/28 17:42:14 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/02 17:04:10 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct		s_coor
 	int				win_size;
 	int				modi;
 	int				size_max;
-	int				*color_table;
+	int				*ct;
+	int				m;
+	int				proj;
 }					t_coor;
 
 typedef struct		s_tmp
@@ -93,8 +95,16 @@ void				plus_plus(int *a, int b, int *c, int d);
 **	tools_draw.c
 */
 
+void				draw2(t_tmp c, t_coor *t, int e);
+void				draw1(t_tmp c, t_coor *t, int e);
 void				pixel_put(int x, int y, t_coor *t, int color);
 void				draw(t_tmp c, t_coor *t);
 void				trace_line(int x, int y, t_coor *t);
+
+/*
+**	tools_draw2.c
+*/
+
+void				trace_line2(int x, int y, t_coor *t);
 
 #endif

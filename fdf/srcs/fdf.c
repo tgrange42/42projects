@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 19:33:15 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/28 17:44:09 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/02 17:02:10 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		*get_color(void)
 {
 	int		*ret;
 
-	if (!(ret = (int *)ft_memalloc(sizeof(int) * 9)))
+	if (!(ret = (int *)ft_memalloc(sizeof(int) * 10)))
 		return (NULL);
 	ret[0] = 0x0000FF;
 	ret[1] = 0x663300;
@@ -62,6 +62,7 @@ int		*get_color(void)
 	ret[6] = 0xFFFF00;
 	ret[7] = 0xFF8000;
 	ret[8] = 0xFF0000;
+	ret[9] = 0xFF0000;
 	return (ret);
 }
 
@@ -72,7 +73,9 @@ void	pre_fdf(t_coor *t)
 	t->ply = 300;
 	t->plx = 1000 / 2 + t->size_x * 2;
 	t->modi = 1;
-	t->color_table = get_color();
+	t->ct = get_color();
+	t->proj = 1;
+	t->m = t->t[0][0];
 	init_draw(t);
 }
 

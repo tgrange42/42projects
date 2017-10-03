@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 10:09:13 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/28 17:50:31 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/02 17:47:04 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define BUFF_SIZE 10
+# define BUFF_SIZE 10000000
 
 typedef struct		s_list
 {

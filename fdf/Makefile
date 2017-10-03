@@ -16,6 +16,7 @@ SRCS =			fdf.c \
 				get_map.c \
 				draw_map.c \
 				tools_draw.c \
+				tools_draw2.c \
 				tools.c \
 				tools2.c \
 				

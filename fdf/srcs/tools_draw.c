@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 17:31:40 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/28 17:51:34 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/02 17:30:49 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void		pixel_put(int x, int y, t_coor *t, int color)
 {
 	if (x * 4 <= t->win_size && x >= 0 && y * 4 < t->win_size && y >= 0)
 	{
-		t->image[((x + y * t->win_size / 4) * 4) + 1 - 1] = (char)(color % 256);
-		t->image[((x + y * t->win_size / 4) * 4) + 2 - 1] = (char)(color / 256
+		t->image[(((x + y * t->win_size / 4) - 1) * 4)] = (char)(color % 256);
+		t->image[(((x + y * t->win_size / 4) - 1) * 4) + 1] = (char)(color / 256
 			% 256);
-		t->image[((x + y * t->win_size / 4) * 4) + 3 - 1] = (char)(color / 256
+		t->image[(((x + y * t->win_size / 4) - 1) * 4) + 2] = (char)(color / 256
 			/ 256 % 256);
 	}
 }
 
-static void	draw2(t_tmp c, t_coor *t, int e)
+void		draw2(t_tmp c, t_coor *t, int e)
 {
 	int	dx;
 	int	dy;
@@ -53,7 +53,7 @@ static void	draw2(t_tmp c, t_coor *t, int e)
 	}
 }
 
-static void	draw1(t_tmp c, t_coor *t, int e)
+void		draw1(t_tmp c, t_coor *t, int e)
 {
 	int	dx;
 	int	dy;
@@ -108,22 +108,22 @@ void		trace_line(int x, int y, t_coor *t)
 
 	if (x < t->size_x - 1)
 	{
-		c.x1 = ((x - y) * 10 + t->plx) * t->e;
-		c.y1 = ((x + y) * 5 + t->ply - t->t[y][x] * t->h) * t->e;
-		c.x2 = (((x + 1) - y) * 10 + t->plx) * t->e;
-		c.y2 = (((x + 1) + y) * 5 + t->ply - t->t[y][x + 1] * t->h) * t->e;
-		c.color = (abs(t->t[y][x + 1]) > 1) ? t->color_table[abs(t->t[y][x + 1])
-			* 7 / abs(t->size_max) + 1] : 0x0000FF;
+		c.x1 = ((x - y) * 10) * t->e + t->plx;
+		c.y1 = ((x + y) * 5 - t->t[y][x] * t->h) * t->e + t->ply;
+		c.x2 = (((x + 1) - y) * 10) * t->e + t->plx;
+		c.y2 = (((x + 1) + y) * 5 - t->t[y][x + 1] * t->h) * t->e + t->ply;
+		c.color = (abs(t->t[y][x + 1]) > abs(t->m)) ? t->ct[abs(t->t[y][x + 1])
+			* 8 / abs(t->size_max) + 1] : 0x0000FF;
 		draw(c, t);
 	}
 	if (y < t->size_y - 1)
 	{
-		c.x1 = ((x - y) * 10 + t->plx) * t->e;
-		c.y1 = ((x + y) * 5 + t->ply - t->t[y][x] * t->h) * t->e;
-		c.x2 = ((x - (y + 1)) * 10 + t->plx) * t->e;
-		c.y2 = ((x + (y + 1)) * 5 + t->ply - t->t[y + 1][x] * t->h) * t->e;
-		c.color = (abs(t->t[y + 1][x]) > 1) ? t->color_table[abs(t->t[y + 1][x])
-			* 7 / abs(t->size_max) + 1] : 0x0000FF;
+		c.x1 = ((x - y) * 10) * t->e + t->plx;
+		c.y1 = ((x + y) * 5 - t->t[y][x] * t->h) * t->e + t->ply;
+		c.x2 = ((x - (y + 1)) * 10) * t->e + t->plx;
+		c.y2 = ((x + (y + 1)) * 5 - t->t[y + 1][x] * t->h) * t->e + t->ply;
+		c.color = (abs(t->t[y + 1][x]) > abs(t->m)) ? t->ct[abs(t->t[y + 1][x])
+			* 8 / abs(t->size_max) + 1] : 0x0000FF;
 		draw(c, t);
 	}
 }
