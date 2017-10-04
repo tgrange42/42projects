@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 17:31:40 by tgrange           #+#    #+#             */
-/*   Updated: 2017/10/02 17:30:49 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/04 16:31:00 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,20 @@ void		trace_line(int x, int y, t_coor *t)
 
 	if (x < t->size_x - 1)
 	{
-		c.x1 = ((x - y) * 10) * t->e + t->plx;
-		c.y1 = ((x + y) * 5 - t->t[y][x] * t->h) * t->e + t->ply;
-		c.x2 = (((x + 1) - y) * 10) * t->e + t->plx;
-		c.y2 = (((x + 1) + y) * 5 - t->t[y][x + 1] * t->h) * t->e + t->ply;
+		c.x1 = ((x - y) * 10 + t->plx) * t->e;
+		c.y1 = ((x + y) * 5 - t->t[y][x] * t->h + t->ply) * t->e;
+		c.x2 = (((x + 1) - y) * 10 + t->plx) * t->e;
+		c.y2 = (((x + 1) + y) * 5 - t->t[y][x + 1] * t->h + t->ply) * t->e;
 		c.color = (abs(t->t[y][x + 1]) > abs(t->m)) ? t->ct[abs(t->t[y][x + 1])
 			* 8 / abs(t->size_max) + 1] : 0x0000FF;
 		draw(c, t);
 	}
 	if (y < t->size_y - 1)
 	{
-		c.x1 = ((x - y) * 10) * t->e + t->plx;
-		c.y1 = ((x + y) * 5 - t->t[y][x] * t->h) * t->e + t->ply;
-		c.x2 = ((x - (y + 1)) * 10) * t->e + t->plx;
-		c.y2 = ((x + (y + 1)) * 5 - t->t[y + 1][x] * t->h) * t->e + t->ply;
+		c.x1 = ((x - y) * 10 + t->plx) * t->e;
+		c.y1 = ((x + y) * 5 - t->t[y][x] * t->h + t->ply) * t->e;
+		c.x2 = ((x - (y + 1)) * 10 + t->plx) * t->e;
+		c.y2 = ((x + (y + 1)) * 5 - t->t[y + 1][x] * t->h + t->ply) * t->e;
 		c.color = (abs(t->t[y + 1][x]) > abs(t->m)) ? t->ct[abs(t->t[y + 1][x])
 			* 8 / abs(t->size_max) + 1] : 0x0000FF;
 		draw(c, t);
