@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 20:13:41 by tgrange           #+#    #+#             */
-/*   Updated: 2017/10/02 16:35:56 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/09 18:37:12 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int		key_gest2(int key, t_coor *t)
 {
 	if (key == 87)
 		t->proj *= -1;
-	mlx_clear_window(t->mlx, t->win);
+	else if (key == 65)
+		t->cube *= -1;
 	loop_draw(t);
 	return (0);
 }
@@ -71,16 +72,8 @@ int		key_gest(int key, t_coor *t)
 		t->modi++;
 	else if (key == 125 && t->modi > 1)
 		t->modi--;
-	mlx_clear_window(t->mlx, t->win);
 	loop_draw(t);
 	return (0);
-}
-
-void	init_draw(t_coor *t)
-{
-	t->mlx = mlx_init();
-	t->win = mlx_new_window(t->mlx, 1000, 1000, "FDF");
-	loop_draw(t);
 }
 
 void	loop_draw(t_coor *t)
@@ -96,15 +89,13 @@ void	loop_draw(t_coor *t)
 		x = 0;
 		while (x < t->size_x)
 		{
-			if (t->proj == 1)
-				trace_line(x, y, t);
-			else
-				trace_line2(x, y, t);
+			which_tracing(x, y, t);
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(t->mlx, t->win, t->img_ptr, 0, 0);
+	mlx_destroy_image(t->mlx, t->img_ptr);
 	put_instr(t->mlx, t->win);
 	mlx_hook(t->win, 2, 3, key_gest, t);
 	mlx_key_hook(t->win, key_gest2, t);

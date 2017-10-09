@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:55:10 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/28 17:42:25 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/09 18:12:50 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	del_tabstr(char ***str)
 	free(*str);
 }
 
-void	del_inttab(int ***tab, int ylen)
+void	del_inttab(int ***tab)
 {
 	int		i;
 
 	i = 0;
 	if (!tab || !*tab)
 		return ;
-	while (i < ylen)
-		ft_memdel((void **)(&tab[0][i++]));
+	while ((*tab)[i])
+		ft_memdel((void *)(&((*tab)[i++])));
 	free(*tab);
 }
 
@@ -54,7 +54,7 @@ int		*char_to_int(char **s, t_coor *t)
 
 	ret = NULL;
 	i = 0;
-	if (!(ret = (int *)ft_memalloc(sizeof(int) * ft_tablen(s))))
+	if (!(ret = (int *)ft_memalloc(sizeof(int) * (ft_tablen(s)))))
 		return (NULL);
 	while (s[i])
 	{
@@ -72,7 +72,7 @@ void	convert_map(char ***map, t_coor *t)
 
 	t->t = NULL;
 	i = 0;
-	if (!(t->t = (int **)ft_memalloc(sizeof(int *) * tri_tablen(map))))
+	if (!(t->t = (int **)ft_memalloc(sizeof(int *) * (tri_tablen(map) + 1))))
 		return ;
 	t->size_max = 0;
 	while (map[i])

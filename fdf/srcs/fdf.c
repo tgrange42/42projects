@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 19:33:15 by tgrange           #+#    #+#             */
-/*   Updated: 2017/10/02 17:02:10 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/09 18:32:54 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,6 @@ int		verif_map(char ***map)
 		i++;
 	}
 	return (0);
-}
-
-void	exit_fdf_error(char ***map, int error, char *name)
-{
-	del_triple_tab(&map);
-	if (error == 1)
-		ft_putendl_fd("fdf: map not clean", 2);
-	if (error == 2)
-		ft_putendl_fd("fdf: map empty", 2);
-	if (error == 3)
-	{
-		ft_putstr_fd("fdf: failed to open: ", 2);
-		ft_putendl_fd(name, 2);
-	}
-	exit(0);
 }
 
 int		*get_color(void)
@@ -76,7 +61,15 @@ void	pre_fdf(t_coor *t)
 	t->ct = get_color();
 	t->proj = 1;
 	t->m = t->t[0][0];
+	t->cube = -1;
 	init_draw(t);
+}
+
+void	init_draw(t_coor *t)
+{
+	t->mlx = mlx_init();
+	t->win = mlx_new_window(t->mlx, 1000, 1000, "FDF");
+	loop_draw(t);
 }
 
 int		main(int ac, char **av)
@@ -101,7 +94,6 @@ int		main(int ac, char **av)
 		table->size_y = tri_tablen(map);
 		del_triple_tab(&map);
 		pre_fdf(table);
-		del_inttab(&table->t, table->size_y);
 	}
 	return (0);
 }

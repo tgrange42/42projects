@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 19:33:57 by tgrange           #+#    #+#             */
-/*   Updated: 2017/09/28 17:42:27 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/09 17:55:55 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	***get_map(char *map_path)
 	{
 		buf = ft_tabsplit(line);
 		ret = add_line_to_map(ret, buf);
+		ft_strdel(&line);
 	}
 	close(fd);
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 17:33:56 by tgrange           #+#    #+#             */
-/*   Updated: 2017/10/02 17:04:10 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/10/09 18:31:10 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_coor
 	int				*ct;
 	int				m;
 	int				proj;
+	int				cube;
 }					t_coor;
 
 typedef struct		s_tmp
@@ -66,7 +67,6 @@ void				loop_draw(t_coor *t);
 **	fdf.c
 */
 
-void				exit_fdf_error(char ***map, int error, char *name);
 
 /*
 **	get_map.c
@@ -79,7 +79,7 @@ char				***get_map(char *map_path);
 */
 
 void				del_tabstr(char ***str);
-void				del_inttab(int ***tab, int ylen);
+void				del_inttab(int ***tab);
 void				del_triple_tab(char ****tab);
 void				convert_map(char ***map, t_coor *t);
 
@@ -90,6 +90,7 @@ void				convert_map(char ***map, t_coor *t);
 int					tri_tablen(char ***tab);
 void				exit_fdf(t_coor *t);
 void				plus_plus(int *a, int b, int *c, int d);
+void				exit_fdf_error(char ***map, int error, char *name);
 
 /*
 **	tools_draw.c
@@ -106,5 +107,13 @@ void				trace_line(int x, int y, t_coor *t);
 */
 
 void				trace_line2(int x, int y, t_coor *t);
+void				trace_line3(int x, int y, t_coor *t);
+
+/*
+**	tools_draw3.c
+*/
+
+void				which_tracing(int x, int y, t_coor *t);
+void				trace_line6(int x, int y, t_coor *t);
 
 #endif
