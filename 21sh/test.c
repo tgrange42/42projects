@@ -6,7 +6,7 @@
 /*   By: tgrange <tgrange@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 17:18:25 by tgrange           #+#    #+#             */
-/*   Updated: 2017/12/04 17:42:01 by tgrange          ###   ########.fr       */
+/*   Updated: 2017/12/06 16:32:07 by tgrange          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*deletechar(char *str, int *w)
 	int		i;
 	int		j;
 
+	if (!str || !*w)
+		return (str);
 	if (!(ret = (char *)ft_memalloc(sizeof(char) * (ft_strlen(str)))))
 		return (NULL);
 	ret = ft_strncpy(ret, str, *w - 1);
@@ -26,7 +28,8 @@ char	*deletechar(char *str, int *w)
 	while (str[j])
 		ret[i++] = str[j++];
 	*w += ft_strlen(ret) - ft_strlen(str);
-	ft_strdel(&str);
+	if (!ft_strlen(ret))
+		return (NULL);
 	return (ret);
 }
 
@@ -43,7 +46,8 @@ char	*includechar(char *str, char c, int *w)
 		ret[*w] = c;
 	i = ft_strlen(ret);
 	j = *w;
-	while (str[j])
+	// ft_putendl("MDR");
+	while (str && str[j])
 		ret[i++] = str[j++];
 	*w += 1;
 	ft_strdel(&str);
@@ -67,20 +71,21 @@ int		init(struct termios *term, struct termios *saved_term)
 	return (1);
 }
 
-int		handle_keys(char *buf, char *line, int *pos)
+int		handle_keys(char *buf, char **line, int *pos)
 {
-	if (buf[0] == 127 && !(buf [1] + buf[2] + buf[3]))
-		line = deletechar(line, pos);
+	if (buf[0] == 10 && !(buf[1] + buf[2] + buf[3]))
+	{
+		*pos = 0;
+		ft_strdel(line);
+	}
+	else if (buf[0] == 127 && !(buf[1] + buf[2] + buf[3]))
+		*line = deletechar(*line, pos);
 	else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 68)
 		*pos -= *pos > 0 ? 1 : 0;
 	else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 67)
-		*pos += *pos < ft_strlen(line) ? 1 : 0;
+		*pos += *pos < ft_strlen(*line) ? 1 : 0;
 	else
 		return (0);
-	// if (*pos > ft_strlen(line))
-	// 	*pos = ft_strlen(line);
-	// if (*pos < 0)
-	// 	*pos = 0;
 	return (1);
 }
 
@@ -95,7 +100,7 @@ void	test(char *buf)
 	{
 		ft_bzero(buf, 4);
 		read(0, buf, 4);
-		if (!handle_keys(buf, line, &pos))
+		if (!handle_keys(buf, &line, &pos))
 			line = includechar(line, buf[0], &pos);
 		ft_putstr_fd(tgetstr("cl", NULL), 0);
 		ft_putstr_fd(line, 0);
